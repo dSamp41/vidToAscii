@@ -11,7 +11,7 @@ def save_img_to_file(inputPath: str, outputPath: str) -> None:
         ascii_text: str = f.read()
 
     img = Image.new('RGB', (1200, 600), color = (255,255,255))
-    fnt = ImageFont.truetype("Pillow/Tests/fonts/FreeMono.ttf", 15)
+    fnt = ImageFont.truetype("fonts/Consolas.ttf", 15)
     ImageDraw.Draw(img).text((0,0), ascii_text, font=fnt, fill=(0,0,0))
 
     img.save(outputPath)
