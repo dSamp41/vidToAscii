@@ -2,10 +2,8 @@
 
 import os
 import av # type: ignore
-import av.datasets # type: ignore
 from PIL import Image
 
-content = av.datasets.curated("pexels/time-lapse-video-of-night-sky-857195.mp4")
 
 def extract_frames(input_path: str):
     with av.open(input_path) as container:
