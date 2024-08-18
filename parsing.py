@@ -1,3 +1,6 @@
+from utils import TextPath
+
+
 COLORS = {
     '30': 'B', #black
     '31': 'r', #red
@@ -10,11 +13,14 @@ COLORS = {
     '90': 'T'  #transparent
 }
 
+#TOKEN := <num> + m + <char>
 def process_token(token: str) -> str:
     return COLORS[token[0:2]]
 
+def process_char(token: str) -> str:
+    return token[3]
 
-def text_to_colormap(inputPath: str, outputPath: str) -> None:
+def text_to_colormap(inputPath: TextPath, outputTextPath: TextPath, outputColormapPath: TextPath) -> None:
     with open(inputPath, "r") as f:
         txt = f.read()
 
@@ -30,16 +36,26 @@ def text_to_colormap(inputPath: str, outputPath: str) -> None:
 
     tokens[-1].remove('39m')
 
-    #token code to color
-    processed = []
-    for row in tokens:
-        processed.append(list(map(process_token, row)))
+    #print("".join(map(process_char, tokens[20])))
 
-    with open(outputPath, "a") as f1:    
-        for r in processed:
-            f1.write("".join(r) + '\n')
+    #token code to color
+    processed_chars = []
+    processed_tokens = []
+
+    for row in tokens:
+        processed_chars.append(map(process_char, row))
+        processed_tokens.append(map(process_token, row))
+
+    with open(outputTextPath, "a") as f:
+        for r in processed_chars:
+            f.write("".join(r) + '\n')
+
+    with open(outputColormapPath, "a") as f:
+        for r in processed_tokens:
+            f.write("".join(r) + '\n')
+    
 
 
 
 if __name__ == "__main__":
-    text_to_colormap("frame-0000.txt", "colors-frame-0000.txt")
+    text_to_colormap("frame-0000.txt", "test/chars-frame-0000.txt", "test/colors-frame-0000.txt")
