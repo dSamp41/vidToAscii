@@ -4,6 +4,8 @@ import os
 import av # type: ignore
 from PIL import Image
 
+from utils import ImageInfo
+
 
 def extract_frames(input_path: str):
     with av.open(input_path) as container:
@@ -15,7 +17,7 @@ def extract_frames(input_path: str):
             frame.to_image().save(f"frames/frame-{index:04d}.jpg")
 
 
-def collect_imgs_to_video(outputPath: str, framesPath:str, framerate=24):
+def collect_imgs_to_video(outputPath: str, framesPath:str, framerate, imageInfo: ImageInfo):
     container = av.open(outputPath, mode='w')
 
     # Add a stream to the container
@@ -26,9 +28,8 @@ def collect_imgs_to_video(outputPath: str, framesPath:str, framerate=24):
 
     frames = os.listdir(framesPath)
 
-    with Image.open(os.path.join(framesPath, frames[0])) as img:
-        stream.width = img.width
-        stream.height = img.height
+    stream.width = imageInfo.width
+    stream.height = imageInfo.height
     stream.pix_fmt = 'yuv420p'
 
     # Loop through all images and add them to the video
