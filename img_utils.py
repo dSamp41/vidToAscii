@@ -1,19 +1,13 @@
-from dataclasses import dataclass
 from ascii_magic import AsciiArt #type: ignore
-from PIL import Image, ImageFont, ImageDraw #type: ignore
+from PIL import Image, ImageFont, ImageDraw
+from utils import ImageInfo, ImagePath, TextPath, TextInfo
 
-@dataclass
-class Info:
-    textCols: int
-    textRows: int
-    
-
-def img_to_text(inputPath: str, outputPath: str, cols=120) -> None:
+def img_to_text(inputPath: ImagePath, outputPath: TextPath, imgInfo: ImageInfo, tInfo: TextInfo) -> None:
     img = AsciiArt.from_image(inputPath)
-    img.to_file(path=outputPath, columns=cols, monochrome=True) #TODO: remove monochrome
+    img.to_file(path=outputPath, columns=tInfo.textCols, width_ratio=imgInfo.width_ratio)
 
 
-def save_img_to_file(inputPath: str, outputPath: str, fontsize: int, info: Info) -> None:
+'''def save_img_to_file(inputPath: str, outputPath: str, fontsize: int, info: TextInfo) -> None:
     with open(inputPath, "r") as f:
         ascii_text: str = f.read()
 
@@ -25,4 +19,4 @@ def save_img_to_file(inputPath: str, outputPath: str, fontsize: int, info: Info)
     
     draw.text((0,0), ascii_text, font=fnt, fill=(0,0,0))
 
-    img.save(outputPath)
+    img.save(outputPath)'''
