@@ -28,7 +28,6 @@ if __name__ == "__main__":
     IMAGE_INFO: ImageInfo = INFO.imgInfo
     TEXT_INFO: TextInfo = INFO.txtInfo
 
-
     try:
         # video -> frames (pngs)
         extract_frames(VIDEO, FRAMES_FOLDER)
