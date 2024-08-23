@@ -1,8 +1,9 @@
 from ascii_magic import AsciiArt
 
-img = AsciiArt.from_image("images/input/frame-0000.jpg")
-img.to_terminal(columns=200)
-#img.to_file("frame-0000.txt", 200, monochrome=False)
+cols = 250
+img = AsciiArt.from_image("../imgAscii/images/input/howl.png")
+img.to_terminal(columns=cols)
+#img.to_file(f"test/{cols}-howl.txt", cols, monochrome=False)
 
 '''
 with open("frame-0000.txt", "r") as f:
