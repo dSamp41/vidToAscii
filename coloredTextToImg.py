@@ -1,5 +1,5 @@
 from PIL import Image, ImageFont, ImageDraw
-from utils import ImagePath, TextInfo, TextPath
+from stucts import ImagePath, TextInfo, TextPath
 
 COLORS_CODE = {
     'B': (0, 0, 0), #black
@@ -27,7 +27,7 @@ def assemble_text_colormap(charsPath: TextPath, colormapPath: TextPath, outputPa
 
     img_width = int(FONT_WIDTH * info.textCols)
     img_heigth = fontsize * info.textRows
-    img = Image.new('RGB', (img_width, img_heigth), color = "black")
+    img = Image.new('RGB', (img_width, img_heigth), color = (10, 10, 10))
 
     fnt = ImageFont.truetype("fonts/Consolas.ttf", fontsize)
     draw = ImageDraw.Draw(img)
@@ -37,7 +37,7 @@ def assemble_text_colormap(charsPath: TextPath, colormapPath: TextPath, outputPa
     for n in range(info.textRows):
         for i in range(info.textCols):
             try:
-                index = n*(info.textCols) + i   # +1 because of \n column
+                index = n*(info.textCols+1) + i   # +1 because of \n column
                 toWrite = ascii_text[index]
 
                 x_pos = i * FONT_WIDTH
@@ -49,10 +49,29 @@ def assemble_text_colormap(charsPath: TextPath, colormapPath: TextPath, outputPa
 
         x_pos = 0
         y_pos += fontsize
-
-    img.save(outputPath)
+   
     
+    img.save(outputPath)
+     
+      
+    '''
+    mapping = zip(ascii_text, colormap)
+    for index in range(len(mapping)):
+        (char, color) = mapping[index]
+
+        x_pos = i * FONT_WIDTH
+        draw.text((x_pos, y_pos), char, font=fnt, fill=colormap[index])
+
+        pass
+    
+    '''
 
 if __name__ == "__main__":
-    INFO = TextInfo(200, 63)
-    assemble_text_colormap("test/chars-frame-0000.txt", "test/colors-frame-0000.txt", "test/multicolor-frame-0000.png", 15, INFO)
+    from parsing import text_to_colormap
+
+    c = 500
+    INFO = TextInfo(c, 122)
+    filename = f"{c}-howl"
+
+    text_to_colormap(f"test/{filename}.txt", f"test/chars-{filename}.txt", f"test/colors-{filename}.txt")
+    assemble_text_colormap(f"test/chars-{filename}.txt", f"test/colors-{filename}.txt", f"test/multicolor-{filename}.png", 15, INFO)
