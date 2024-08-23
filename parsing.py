@@ -1,4 +1,4 @@
-from utils import TextPath
+from stucts import TextPath
 
 
 COLORS = {
@@ -53,9 +53,9 @@ def text_to_colormap(inputPath: TextPath, outputTextPath: TextPath, outputColorm
     with open(outputColormapPath, "a") as f:
         for r in processed_tokens:
             f.write("".join(r) + '\n')
-    
 
 
 
 if __name__ == "__main__":
-    text_to_colormap("frame-0000.txt", "test/chars-frame-0000.txt", "test/colors-frame-0000.txt")
+    filename = "500-howl.txt"
+    text_to_colormap(f"test/{filename}", f"test/chars-{filename}", f"test/colors-{filename}")
