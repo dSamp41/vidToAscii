@@ -1,6 +1,6 @@
 from ascii_magic import AsciiArt #type: ignore
 from PIL import Image, ImageFont, ImageDraw
-from utils import ImageInfo, ImagePath, TextPath, TextInfo
+from stucts import ImageInfo, ImagePath, TextPath, TextInfo
 
 def img_to_text(inputPath: ImagePath, outputPath: TextPath, imgInfo: ImageInfo, tInfo: TextInfo) -> None:
     img = AsciiArt.from_image(inputPath)
@@ -20,3 +20,13 @@ def img_to_text(inputPath: ImagePath, outputPath: TextPath, imgInfo: ImageInfo, 
     draw.text((0,0), ascii_text, font=fnt, fill=(0,0,0))
 
     img.save(outputPath)'''
+
+
+'''if __name__ == "__main__":
+    imgInfo = ImageInfo(1920, 1080)
+
+    cols = 800
+    rows = int((imgInfo.height * cols) / (imgInfo.width * imgInfo.width_ratio))
+    txtInfo = TextInfo(cols, rows)
+
+    img_to_text("images/input/frame-0000.jpg", "test/frame-0000.txt", imgInfo, txtInfo)'''
