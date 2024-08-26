@@ -11,7 +11,9 @@ COLORS_CODE = {
     'c': (0, 255, 255), #cyan
     'W': (255, 255, 255), #white
     'T': (102, 102, 102),  #transparent
-    '\n': 'white'
+    '\n': 'white',
+    'G': (170, 170, 170),
+    'M': (153, 51, 0)
 }
 
 def assemble_text_colormap(charsPath: TextPath, colormapPath: TextPath, outputPath: ImagePath, fontsize: int, info: TextInfo) -> None:
@@ -29,7 +31,7 @@ def assemble_text_colormap(charsPath: TextPath, colormapPath: TextPath, outputPa
     img_heigth = fontsize * info.textRows
     img = Image.new('RGB', (img_width, img_heigth), color = (10, 10, 10))
 
-    fnt = ImageFont.truetype("fonts/Consolas.ttf", fontsize)
+    fnt = ImageFont.truetype("fonts/RobotoMono-Bold.ttf", fontsize) #ImageFont.truetype("fonts/Consolas.ttf", fontsize)
     draw = ImageDraw.Draw(img)
     
     (x_pos, y_pos) = (0, 0)
