@@ -7,12 +7,12 @@ from PIL import Image
 from stucts import ImageInfo
 
 
-def get_size(path: str) -> ImageInfo:
+def get_size(path: str) -> tuple[int, int]:
     with av.open(path) as container:
         stream = container.streams.video[0]
         #print(stream.base_rate, stream.frames)
 
-        return ImageInfo(stream.width, stream.height)
+        return (stream.width, stream.height)
 
 if __name__ == "__main__":
     print(get_size("images/input/akira_slide.mp4"))
@@ -29,10 +29,10 @@ def extract_frames(input_path: str, outputFolder: str = "frames"):
                 .save(f"{outputFolder}/frame-{index:04d}.jpg")
 
 
-def collect_imgs_to_video(outputPath: str, framesPath:str, framerate, imageInfo: ImageInfo):
+def collect_imgs_to_video(outputPath: str, framesPath:str, imageInfo: ImageInfo):
     with av.open(outputPath, mode='w') as container:
         # Add a stream to the container
-        stream = container.add_stream('mpeg4', rate=framerate)
+        stream = container.add_stream('mpeg4', rate=imageInfo.framerate)
 
         # Set the stream's width, height, and pixel format (assuming all images are the same size)
         img_size = Image.open(f"{framesPath}/frame-0000.png").size
