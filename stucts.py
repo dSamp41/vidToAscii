@@ -8,6 +8,7 @@ class TextInfo:
 
 @dataclass
 class ImageInfo:
+    framerate: int
     width: int
     height: int
     width_ratio: int = field(init=False)
