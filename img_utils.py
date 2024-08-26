@@ -22,11 +22,11 @@ def img_to_text(inputPath: ImagePath, outputPath: TextPath, imgInfo: ImageInfo, 
     img.save(outputPath)'''
 
 
-'''if __name__ == "__main__":
+if __name__ == "__main__":
     imgInfo = ImageInfo(1920, 1080)
 
-    cols = 800
+    cols = 300
     rows = int((imgInfo.height * cols) / (imgInfo.width * imgInfo.width_ratio))
     txtInfo = TextInfo(cols, rows)
 
-    img_to_text("images/input/frame-0000.jpg", "test/frame-0000.txt", imgInfo, txtInfo)'''
+    img_to_text("images/input/frame-0000.jpg", "test/frame-0000.txt", imgInfo, txtInfo)
