@@ -1,4 +1,5 @@
 import os
+import time
 from coloredTextToImg import assemble_text_colormap
 from img_utils import img_to_text #type: ignore
 from parsing import text_to_colormap
@@ -19,14 +20,16 @@ def clear_folder(folder: str) -> None:
 
 
 if __name__ == "__main__":
-    filename = "akira_slide"
-    VIDEO = f"{INPUT_PATH}/{filename}.mp4"
+    fileName = "akira_corrected"
+    VIDEO = f"{INPUT_PATH}/{fileName}.mp4"
     COLS = 500
     
     INFO = Info(TextInfo(COLS), get_size(VIDEO))
 
     IMAGE_INFO: ImageInfo = INFO.imgInfo
     TEXT_INFO: TextInfo = INFO.txtInfo
+
+    start = time.time()
 
     try:
         # video -> frames (pngs)
@@ -46,7 +49,7 @@ if __name__ == "__main__":
             assemble_text_colormap(f"{MAPPINGS_PATH}/chars-{filename}.txt", f"{MAPPINGS_PATH}/colors-{filename}.txt", f"{FRAMES_ASCII_FOLDER}/{filename}.png", 15, TEXT_INFO)
             
         # asciis -> video
-        collect_imgs_to_video(f"{OUTPUT_PATH}/{filename}_ascii.mp4", FRAMES_ASCII_FOLDER, 24, IMAGE_INFO)
+        collect_imgs_to_video(f"{OUTPUT_PATH}/{fileName}_ascii.mp4", FRAMES_ASCII_FOLDER, 24, IMAGE_INFO)
     except KeyboardInterrupt:
         pass
     finally:
@@ -54,3 +57,5 @@ if __name__ == "__main__":
         #clean-up
         for folder in [FRAMES_FOLDER, FRAMES_ASCII_FOLDER, MAPPINGS_PATH]:
             clear_folder(folder)
+
+    print(f"time: {time.time() - start}s")
