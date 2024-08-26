@@ -10,7 +10,11 @@ COLORS = {
     '35': 'm', #magenta
     '36': 'c', #cyan
     '37': 'W', #white
-    '90': 'T'  #transparent
+    '90': 'T',  #transparent
+    '70': 'G',   #grey
+    '71': 'M'
+
+
 }
 
 #TOKEN := <num> + m + <char>
